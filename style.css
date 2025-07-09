@@ -1,221 +1,238 @@
+ body {
+      font-family: "Orbitron", sans-serif;
+      margin: 0px;
+    }
 
-body {
-  font-family: "Orbitron", sans-serif;
-  margin: 0px;
-}
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: black;
+      color: white;
+      padding: 10px 20px;
+    }
 
-.header{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: black;
-  color: white;
-  padding: 10px 20px;
-}
+    .menu {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      position: relative;
+    }
 
-.menu{
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  position: relative;
-}
+    .drop-down {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background-color: #fff;
+      color: #000;
+      list-style: none;
+      padding: 10px 0;
+      margin: 0;
+      border-radius: 5px;
+      min-width: 150px;
+      z-index: 999;
+    }
 
-/*this hides the dropdown menu by default*/
-.drop-down{
-  display: none;
-  position: absolute;
-  top: 100%;/*pushes it to the lottie*/
-  right: 0;
-  background-color: #fff;
-  color: #000;
-  list-style: none;
-  padding: 10px 0;
-  margin: 0;
-  border-radius: 5px;
-  min-width: 150px;
-  z-index: 999;
-}
+    .menu li:hover .drop-down {
+      display: block;
+    }
 
-/*show drop-down on using hover*/
-.menu li:hover .drop-down{
-  display: block;
-}
-/*optional: style the dropdown links*/
-.drop-down li a {
-  display:block;
-  padding: 10px 20px;
-  text-decoration: none;
-  color: black;
-}
-.drop-down li a:hover {
-  background-color:#eee;
-}
+    .drop-down li a {
+      display: block;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: black;
+    }
 
-.form-group{
-  display: flex;
-  flex-direction: column;
-  margin: 2px;
-}
-.form-group label {
-  margin-bottom: 5px;
-}
-.form-group input {
-  margin-top: 10px;
-  height: 30px;
-  padding: 5px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-}
-.form-group button {
-  display: flex;
-  flex-direction: row;
-}
+    .drop-down li a:hover {
+      background-color: #eee;
+    }
 
-.main{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-}
-.main-image{
-  width: 300px;
-  height: 200px;
-  margin-bottom: 10px;
-  object-fit: cover;
-}
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin: 2px;
+    }
 
-.main-details{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: left;
-  text-align: left;
+    .form-group input {
+      margin-top: 10px;
+      height: 30px;
+      padding: 5px;
+    }
 
-  margin-top: 30px;
-}
+    .main {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 100px;
+    }
 
-#card-mockup{
- width: 300px;
- height: 200px;
- border: 2px solid #000;
- border-radius: 5px;
+    .main-details {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: left;
+      text-align: left;
+      margin-top: 30px;
+    }
 
- display: flex;
- flex-direction: column;
- position: relative;
+    #card-mockup {
+      width: 300px;
+      height: 200px;
+      border: 2px solid #000;
+      border-radius: 5px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background-color: #f8f8f8;
+      box-shadow: 2px 2px 10px #ccc;
+    }
 
- align-items: center;
- justify-content: center;
- gap: 10px;
+    .card-name {
+      position: absolute;
+      top: 0px;
+      left: 100px;
+      padding: 3px;
+    }
 
- background-color: #f8f8f8;
- box-shadow: 2px 2px 10px #ccc;
-}
+    .card-container {
+      width: 300px;
+      height: 189px;
+      perspective: 1000px;
+      margin: 20px auto;
+    }
 
-.card-name{
-  position: absolute;
-  top: 0px;
-  left: 100px;
-  padding: 3px;
-}
+    .card-container.flip .card {
+      transform: rotateY(180deg);
+    }
 
+    .flip-arrow {
+      position: absolute;
+      left: -40px;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: #000;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 12px;
+      cursor: pointer;
+      z-index: 999;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+      font-size: 20px;
+    }
 
+    .card {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
 
-/* this part is for experiment */
+    .card-front,
+    .card-back {
+      backface-visibility: hidden;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      position: absolute;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
-.card-container{
-    width: 300px; /* simulated width */
-  height: 189px; /* 300 * (53.98 / 85.6) */
-  perspective: 1000px; /* This enables 3D */
-  margin: 20px auto;
-}
+    .card-front {
+      background-color: #f8f8f8;
+    }
 
-.card{
-  width: 100%;
-  height: 100%;
-  position: relative; /* card lo stick avvali ante use it */
-  transform-style: preserve-3d;
-  transition: transform 0.8s ease;
-}
+    .card-back {
+      transform: rotateY(180deg);
+      background-color: #e2e2e2;
+    }
 
-/* Flip on hover */
-.card-container:hover .card {
-  transform: rotateY(180deg);
-}
+    .card-back img {
+      width: 100px;
+      height: 100px;
+      display: block;
+    }
 
-.card-front,.card-back{
-  backface-visibility: hidden;
-  width: 100%;
-  height: 100%;
-  border-radius: 5px;
+    .keychain-ring {
+      width: 10px;
+      height: 10px;
+      border: 4px solid #000;
+      border-radius: 50%;
+      position: absolute;
+      top: 18px;
+      left: 23px;
+      background-color: white;
+      z-index: 5;
+    }
 
-  position: absolute;
-  overflow: hidden;
+    .keychain {
+      position: absolute;
+      width: 40px;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      pointer-events: none;
+      transition: transform 0.8s ease;
+    }
 
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+    .keychain.wiggle {
+      animation: wiggle 0.6s ease-in-out;
+    }
 
+    @keyframes wiggle {
+      0% {
+        transform: rotate(0deg)
+      }
 
-.card-front {
-  background-color: #f8f8f8;
-}
-#profile-pic {
-  width: 90px;
-  height: 90px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 2px solid #333;
-  margin-top: 20px;
-}
+      20% {
+        transform: rotate(9deg)
+      }
 
-.card-back {
-  transform: rotateY(180deg);
-  background-color: #e2e2e2;
-}
-.card-back img {
-  width: 100px;
-  height: 100px;
-  display: block;
-}
+      40% {
+        transform: rotate(-6deg)
+      }
 
-.keychain-ring {
-  width: 10px;
-  height: 10px;
-  border: 4px solid rgb(0, 0, 0);
-  border-radius: 50%;
-  position: absolute;
-  top: 18px;
-  left: 23px;
-  background-color: white;
-  z-index: 5;
-}
+      60% {
+        transform: rotate(5deg)
+      }
 
-.keychain {
-  position: absolute;
-  width: 40px;
-  top: 20px;
-  left: 20px;
-  z-index: 10;
+      80% {
+        transform: rotate(3deg)
+      }
 
-  /* this below code makes the keychain sticks to the card */
+      100% {
+        transform: rotate(0deg)
+      }
+    }
 
-  pointer-events: none; /* so it doesn't block hover */
-  transition: transform 0.8s ease;
-}
+    .profile-container {
+      width: 100px;
+      height: 90px;
+      overflow: hidden;
+      position: relative;
+      border-radius: 50%;
+      border: 2px solid #333;
+      margin-top: 20px;
+      z-index: 2;
+    }
 
-
-.card-container:hover .keychain {
-  animation: wiggle 0.6s ease-in-out;
-}
-
-@keyframes wiggle {
-  0%    {transform:rotate(0deg)}
-  20%   {transform:rotate(9deg)}
-  40%   {transform:rotate(-6deg)}
-  60%   {transform: rotate(5deg)}
-  80%   {transform: rotate(3deg)}
-  100%  {transform:rotate(0deg)}
-}
+    #profile-pic {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      cursor: grab;
+    }
