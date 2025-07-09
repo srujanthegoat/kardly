@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+
+  
+ <script src="https://unpkg.com/@dotlottie/player-component@2.7.12/dist/dotlottie-player.mjs" type="module"></script>
+
+  <link rel="stylesheet" href="style.css">
+
+  <!-- below is the html2canvas -->
+   <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+</head>
+<body>
+<div class="header">
+  <h1>kardly</h1>
+
+  <ul class="menu">
+    <li class="dropdown">
+      <a href="#">
+        <dotlottie-player
+          src="https://lottie.host/8135c3ba-13f2-4fcb-b6c7-d50fcfd40caa/VjIYCNWtXA.lottie"
+          background="transparent"
+          speed="1"
+          style="width: 100px; height: 100px"
+          direction="1"
+          playMode="forward"
+          hover
+        ></dotlottie-player>
+      </a>
+      <ul class="drop-down">
+        <li><a href="#">Picture Edit</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
+
+  <div class="container">
+    <div class="main">
+      <!-- <img class="main-image" src="poster.jpg" alt=""> -->
+
+      <!-- the action attribute is used where the data sent should go like name form yoka data eda? google docs eg -->
+
+      <div class="card-container">
+        <div class="card" id="card-mockup">
+       
+          <img src="keychain.png" class="keychain" />
+            <div class="keychain-ring"></div>
+
+          <div class="card-front">
+            <!-- this part is for the card front-side -->
+
+               <div id="previewName" class="card-name">your name</div>
+               <img id="profile-pic" style="width: 100px; height:90px;" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNkZGQiLz4KPHN2ZyB4PSIyMCIgeT0iMTUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjOTk5Ij4KICA8cGF0aCBkPSJNMTIgMTJjMi4yMSAwIDQtMS43OSA0LTRzLTEuNzktNC00LTQtNCAxLjc5LTQgNCAxLjc5IDQgNCA0em0wIDJjLTIuNjcgMC04IDEuMzQtOCA0djJoMTZ2LTJjMC0yLjY2LTUuMzMtNC04LTR6Ii8+Cjwvc3ZnPgo8L3N2Zz4=" alt="profile">
+              </div>
+
+              <div id="cardBack"class="card-back">
+              <img id="qrImage"src="" alt="qr">
+          </div>
+
+        </div>
+      </div>
+      
+
+      <form class="main-details">
+
+        <!-- for name -->
+        <div class="form-group">
+
+          <label for="nameInput">enter your name:</label>
+          <input id="nameInput"type="text" placeholder="type your name">
+
+        </div>
+
+        <br>
+
+        <!-- picture -->
+        <div class="form-group">
+          <label for="picture">upload-picture:</label>
+          <input id="picture" type="file" accept="image/*">
+        </div>
+
+        <br>
+
+        <!-- background-colour -->
+          
+        <div class="form-group">
+          <label for="colour">background-color:</label>
+          <input id="colour" type="color">
+        </div>
+
+    
+
+        <br>
+        
+        <!-- qr code -->
+        <div class="form-group">
+          <label for="qr_code">Qr code link:</label>
+          <input id="qrText" type="text" placeholder="text or url">
+        </div>
+
+        <br>
+        
+      <div style="display:flex; flex-direction: row; justify-content: space-around">
+        <div>
+          <button id="submitCard">Save & Submit</button>
+        </div>
+
+          <br>
+
+        <div>
+          <button>reset</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+
+  <script>
+
+    //this is for the backend logic for the image to store in the database aka my google drive folder
+    document.getElementById("submitCard").addEventListener("click", async () => {
+  const card = document.getElementById("card-mockup");
+
+  // Capture as image
+  html2canvas(card).then(canvas => {
+    const imageData = canvas.toDataURL("image/png").split(',')[1]; // Remove "data:image/png;base64,"
+
+    // Send to Google Apps Script
+    fetch("https://script.google.com/macros/s/AKfycbx7mMsrMfzlQ1ULBVK9UZtMV5I2REtRRQ8R8o6lbWXnuXNgTNKXIKE3xrYHnmdDWYDN/exec", {
+      method: "POST",
+      body: new URLSearchParams({
+        "data": imageData,
+        "name": document.getElementById("nameInput").value || "custom_card"
+      })
+    }).then(res => {
+      if (res.ok) {
+        alert("Submitted successfully!");
+      } else {
+        alert("Failed to submit.");
+      }
+    });
+  });
+});
+
+  </script>
+  
+  <script src="main.js"></script>
+</body>
+</html>

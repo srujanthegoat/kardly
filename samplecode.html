@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>home</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      font-family: "Orbitron", sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header{
+      background-color: black;
+      color: white;
+      display: flex;
+      justify-content: center;
+      padding: 20px 0;
+      margin: 0px;
+      z-index: 0;
+    }
+
+    .main{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      margin-top: 50px;
+    }
+
+    .main-details{
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: left;
+      text-align: left;
+      margin-top: 30px;
+      gap: 15px;
+    }
+
+    .main-details label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .main-details input {
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 3px;
+      font-family: "Orbitron", sans-serif;
+    }
+
+    /* Card Container and 3D Effects */
+    .card-container{
+      width: 300px;
+      height: 200px;
+      perspective: 1000px;
+      margin: 20px auto;
+    }
+
+    .card{
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease;
+    }
+
+    /* Flip on hover */
+    .card-container:hover .card {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back{
+      backface-visibility: hidden;
+      width: 100%;
+      height: 100%;
+      border-radius: 5px;
+      border: 2px solid #000;
+      position: absolute;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 2px 10px #ccc;
+    }
+
+    .card-front {
+      background-color: #f8f8f8;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      background-color: #e2e2e2;
+    }
+
+    .card-name{
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    #profile-pic {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 2px solid #333;
+      object-fit: cover;
+      margin-top: 30px;
+    }
+
+    #qrImage {
+      width: 120px;
+      height: 120px;
+      border-radius: 5px;
+    }
+
+    /* Keychain styling */
+    .keychain-ring {
+      width: 10px;
+      height: 10px;
+      border: 4px solid rgb(0, 0, 0);
+      border-radius: 50%;
+      position: absolute;
+      top: 18px;
+      left: 23px;
+      background-color: white;
+      z-index: 5;
+    }
+
+    .keychain {
+      position: absolute;
+      width: 40px;
+      top: 20px;
+      left: 20px;
+      z-index: 10;
+      pointer-events: none;
+      transition: transform 0.8s ease;
+    }
+
+    .card-container:hover .keychain {
+      animation: wiggle 0.6s ease-in-out;
+    }
+
+    @keyframes wiggle {
+      0%    {transform:rotate(0deg)}
+      20%   {transform:rotate(9deg)}
+      40%   {transform:rotate(-6deg)}
+      60%   {transform: rotate(5deg)}
+      80%   {transform: rotate(3deg)}
+      100%  {transform:rotate(0deg)}
+    }
+
+    /* Form styling */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      margin-bottom: 5px;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .buttons input {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      font-family: "Orbitron", sans-serif;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .buttons input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .buttons input[type="reset"] {
+      background-color: #f44336;
+      color: white;
+    }
+
+    .buttons input:hover {
+      opacity: 0.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>kardly</h1>
+  </div>
+
+  <div class="container">
+    <div class="main">
+      <div class="card-container">
+        <div class="card" id="card-mockup">
+          <!-- Keychain image placeholder -->
+          <div class="keychain-ring"></div>
+
+          <div class="card-front" id="cardFront">
+            <div id="previewName" class="card-name">your name</div>
+            <img id="profile-pic" src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNkZGQiLz4KPHN2ZyB4PSIyMCIgeT0iMTUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjOTk5Ij4KICA8cGF0aCBkPSJNMTIgMTJjMi4yMSAwIDQtMS43OSA0LTRzLTEuNzktNC00LTQtNCAxLjc5LTQgNCAxLjc5IDQgNCA0em0wIDJjLTIuNjcgMC04IDEuMzQtOCA0djJoMTZ2LTJjMC0yLjY2LTUuMzMtNC04LTR6Ii8+Cjwvc3ZnPgo8L3N2Zz4=" alt="profile">
+          </div>
+
+          <div id="cardBack" class="card-back">
+            <img id="qrImage" src="" alt="qr" style="display: none;">
+          </div>
+        </div>
+      </div>
+
+      <form class="main-details">
+        <div class="form-group">
+          <label for="nameInput">Enter your name:</label>
+          <input id="nameInput" type="text" placeholder="Type your name">
+        </div>
+
+        <div class="form-group">
+          <label for="picture">Upload picture:</label>
+          <input id="picture" type="file" accept="image/*">
+        </div>
+
+        <div class="form-group">
+          <label for="colour">Background color:</label>
+          <input id="colour" type="color" value="#f8f8f8">
+        </div>
+
+        <div class="form-group">
+          <label for="qrText">QR code link:</label>
+          <input id="qrText" type="text" placeholder="Enter text or URL">
+        </div>
+
+        <div class="buttons">
+          <input type="submit" value="Submit">
+          <input type="reset" value="Reset">
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <script>
+    // QR Code functionality
+    const cardBack = document.getElementById("cardBack");
+    const qrImage = document.getElementById("qrImage");
+    const qrText = document.getElementById("qrText");
+
+    qrText.addEventListener("input", function () {
+      const value = qrText.value.trim();
+
+      if (value) {
+        qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=" + encodeURIComponent(value);
+        qrImage.style.display = "block";
+      } else {
+        qrImage.src = "";
+        qrImage.style.display = "none";
+      }
+    });
+
+    // Name preview functionality
+    const nameInput = document.getElementById("nameInput");
+    const previewName = document.getElementById("previewName");
+
+    nameInput.addEventListener("input", function () {
+      const name = nameInput.value.trim();
+
+      if (name) {
+        previewName.textContent = name;
+      } else {
+        previewName.textContent = "your name";
+      }
+    });
+
+    // Live color preview functionality
+    const colorInput = document.getElementById("colour");
+    const cardFront = document.getElementById("cardFront");
+    const cardBackElement = document.getElementById("cardBack");
+
+    colorInput.addEventListener("input", function () {
+      const color = colorInput.value;
+      // Update both front and back card colors
+      cardFront.style.backgroundColor = color;
+      cardBackElement.style.backgroundColor = color;
+    });
+
+    // Image upload functionality
+    const pictureInput = document.getElementById("picture");
+    const profilePic = document.getElementById("profile-pic");
+
+    pictureInput.addEventListener("change", function (event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+          profilePic.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Form reset functionality
+    const form = document.querySelector("form");
+    form.addEventListener("reset", function () {
+      // Reset all preview elements to default
+      previewName.textContent = "your name";
+      profilePic.src = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iODAiIGhlaWdodD0iODAiIHZpZXdCb3g9IjAgMCA4MCA4MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iNDAiIGZpbGw9IiNkZGQiLz4KPHN2ZyB4PSIyMCIgeT0iMTUiIHdpZHRoPSI0MCIgaGVpZ2h0PSI1MCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSIjOTk5Ij4KICA8cGF0aCBkPSJNMTIgMTJjMi4yMSAwIDQtMS43OSA0LTRzLTEuNzktNC00LTQtNCAxLjc5LTQgNCAxLjc5IDQgNCA0em0wIDJjLTIuNjcgMC04IDEuMzQtOCA0djJoMTZ2LTJjMC0yLjY2LTUuMzMtNC04LTR6Ii8+Cjwvc3ZnPgo8L3N2Zz4=";
+      qrImage.src = "";
+      qrImage.style.display = "none";
+      cardFront.style.backgroundColor = "#f8f8f8";
+      cardBackElement.style.backgroundColor = "#e2e2e2";
+    });
+  </script>
+</body>
+</html>
